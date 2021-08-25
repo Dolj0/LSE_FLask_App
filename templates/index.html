@@ -154,7 +154,7 @@
                                           <div class="row align-items-center">
                                             <div class="col-auto" style="padding-right: 0">
                                               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Add or Remove stock
+                                                Number of Holdings
                                               </div>
                                             </div>
                                             <div class="col-auto">
@@ -226,21 +226,6 @@
                         <div class="jd-row">
                           <canvas id="myReturnsChart"></canvas>
                         </div>
-                        <div class= "jd-row-input">
-                          <div class="card card-header-actions">
-                            <div class="card-header">
-                                Add or Remove Stock
-                                <form>
-                                    <input class="form-control" placeholder="Example 'MSFT'">
-                                </form>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text"><i class="fas fa-check"></i> Graham screens suggest this stock is undervalued</p>
-                                <p class="card-text"><i class="fas fa-times"></i> Adding this stock will increase decrease Sharpe Ratio</p>
-                                <a href="#" class="btn btn-primary">Add</a>
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -249,7 +234,9 @@
                     myData = const_pie({{labels_pie|tojson}}, {{values_pie|tojson}})
                   </script>
                   <script src="{{ url_for('static', filename='js/chart3.js')}}" type="text/javascript"> </script>
-
+                  <script type="text/javascript">
+                    myData = const_bar({{labels_pie|tojson}}, {{values_bar|tojson}})
+                  </script>
                 </div>
             </div>
         </div>

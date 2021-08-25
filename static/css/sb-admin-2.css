@@ -10863,14 +10863,7 @@
   .jd-row{
     display: inline-block;
     height: 15rem;
-    width: 32%;
-  }
-
-  .jd-row-input{
-    display: inline-block;
-    vertical-align:top;
-    height: 15rem;
-    width: 32%;
+    width: 49%;
   }
   
   .bg-login-image {

@@ -16,8 +16,10 @@ def home():
 
    labels_pie = ["GOOG", "AAPL", "PRAT", "AMZN"]
    values_pie = [30, 30, 15, 25]
+   values_bar = [1.3, 0.7, -0.3, 2.4]
+   
 
-   return render_template('index.html', average_returns=average_returns, volatility=volatility, sharpe_ratio=sharpe_ratio, number_of_stocks=number_of_stocks, labels=labels, values=values, labels_pie=labels_pie, values_pie=values_pie)
+   return render_template('index.html', average_returns=average_returns, volatility=volatility, sharpe_ratio=sharpe_ratio, number_of_stocks=number_of_stocks, labels=labels, values=values, labels_pie=labels_pie, values_pie=values_pie, values_bar=values_bar)
 
 if __name__ == '__main__':
    app.run()
