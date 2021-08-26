@@ -57,8 +57,11 @@ class port_function:
         
         return(mean_ftse_returns, std_ftse_returns)
         
+    def get_returns(self):
+        return(self.returns)
 
-
+    def get_avg_returns(self):
+        return(self.mean_returns)
 
     def max_sharpe(self):
         max_sharpe = self.max_sharpe_ratio()
