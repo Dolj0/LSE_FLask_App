@@ -10,6 +10,12 @@ The new GUI uses uses CSS, HTML and chart.js. Using this tech stack provides a m
 My GUI was inspired by Inverno --> https://github.com/werew/inverno.
 Whilst inverno produces a HTML file that presents stock data entered with a .csv file, LSE_Flask_App is a CRUD web application designed to give advice on stock weightings given a set of tickers.
 
+## Example
+
+![GitHub Logo](https://github.com/Dolj0/LSE_FLask_App/blob/main/Efficient%20Portfolio%20Example.png)
+Format: ![Alt Text](url)
+
+
 ## Future Recommendations
 Addition of a login system would theoretically enable the program to be used as a real-world webpage. 
 This app could be added to the Inverno app to provide the dashboard with portfolio recommendations.
