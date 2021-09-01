@@ -15,6 +15,6 @@ Whilst inverno produces a HTML file that presents stock data entered with a .csv
 ![GitHub Logo](https://github.com/Dolj0/LSE_FLask_App/blob/main/Efficient%20Portfolio%20Example.png)
 
 ## Future Recommendations
-*Addition of a login system would theoretically enable the program to be used as a real-world webpage. 
-*This app could also be added to the Inverno app to provide the dashboard with portfolio recommendations.
+* Addition of a login system would theoretically enable the program to be used as a real-world webpage. 
+* This app could also be added to the Inverno app to provide the dashboard with portfolio recommendations.
 
