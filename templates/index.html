@@ -45,17 +45,33 @@
                         </div>
                     </div>
 
+
+                    <!-- <div class = "row">
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button">button</button>
+                        </div>
+                      </div>
+                    </div> -->
+
                     <!--Ticker Entry-->
+
+
                     <div class = "row">
-                      <form action="/" METHOD="POST">
-                        <input type="text" placeholder="Ticker" name="ticker">
-                        <input type="submit" value="Add/Remove Stock" class="btn btn-seconday">
-                      </form>
+                        <div class="col-auto" style="padding-right: 0">
+                          <div class="input-group mb-3">
+                              <form class="form-inline" action="/" METHOD="POST">
+                                <input class="form-control" type="text" placeholder="Ticker" name="ticker">
+                                <input class="btn btn-primary" type="submit" value="Add/Remove Stock">
+                              </form>
+                          </div>
+                        </div>
                     </div>
+                    
 
                     <!--Stats Row-->
                     <div class = "row">
-                        
                         <!-- Average Return -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -65,18 +81,18 @@
                                           <div class="row align-items-center">
                                             <div class="col-auto" style="padding-right: 0">
                                               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Average Return
+                                                Annualized Return
                                               </div>
                                             </div>
                                             <div class="col-auto">
                                               <i class="fas fa-info-circle text-gray-300" 
                                                 data-bs-toggle="tooltip" 
                                                 data-bs-placement="top" 
-                                                title="The sum of the average daily returns of each stock, multiplied by their weight in the Portfolio"></i>
+                                                title="The average daily return of the portfolio multiplied by the number of days the London stock exchange is open (252)"></i>
                                             </div>
                                           </div>
                                           <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <p>{{average_returns}}</p>
+                                            <p>{{average_returns}}%</p>
                                           </div>
                                         </div>
                                         <div class="col-auto">
@@ -111,7 +127,7 @@
                                             </div> <!--{{x}}, Replace with SD from Flask-->
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i> <!--Change to icon that represents volatility-->
+                                            <i class="fas fa-chart-line fa-2x text-gray-300"></i> <!--Change to icon that represents volatility-->
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +150,7 @@
                                               <i class="fas fa-info-circle text-gray-300" 
                                                 data-bs-toggle="tooltip" 
                                                 data-bs-placement="top" 
-                                                title="The average return earned in excess of the risk-free rate per unit of volatility or total risk"></i>
+                                                title="The average return earned in excess of the risk-free rate (10 Year Gvt Bond Yield) per unit of risk"></i>
                                             </div>
                                           </div>
                                             <div class="row no-gutters align-items-center">
@@ -146,7 +162,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                           <i class="fas fa-chart-line fa-2x text-gray-300"></i> <!--Sharpe Ratio Icon??-->
+                                           <i class="fas fa-balance-scale fa-2x text-gray-300"></i> <!--Sharpe Ratio Icon??-->
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +185,7 @@
                                               <i class="fas fa-info-circle text-gray-300" 
                                                 data-bs-toggle="tooltip" 
                                                 data-bs-placement="top" 
-                                                title="Number of differnt assets currently held in this portfolio."></i>
+                                                title="Number of differnt assets currently held in this portfolio"></i>
                                             </div>
                                           </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">

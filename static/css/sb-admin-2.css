@@ -1826,7 +1826,7 @@
   }
   
   .form-control {
-    display: block;
+    display: inline-block;
     width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
@@ -2356,6 +2356,7 @@
   }
   
   .btn-primary {
+    display: inline-block;
     color: #fff;
     background-color: #4e73df;
     border-color: #4e73df;
@@ -2396,6 +2397,8 @@
     color: #fff;
     background-color: #858796;
     border-color: #858796;
+    position: relative;
+    display: inline-block;
   }
   
   .btn-secondary:hover {
@@ -10860,11 +10863,17 @@
     }
   }
 
+  .jd-form{
+    display: inline-block;
+  }
+
   .jd-row{
     display: inline-block;
     height: 15rem;
     width: 49%;
   }
+
+  
   
   .bg-login-image {
     background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");

@@ -43,19 +43,23 @@ def gen_portfolio():
    weight_df[0] = weight_df[0].div(100)        
    number_of_holdings = len(df.index)
    past_ret = portfolios.get_returns()
+   #Multiplies the past returns of each stock by their weighting in the current portfolio
    returns_df = past_ret.dot(weight_df)
-   returns_df = returns_df.groupby(by=[returns_df.index.year, returns_df.index.month]).mean()
+   #Groups the weighted retuns by year and month, and gets the mean return throughout the month
+   returns_df_1 = returns_df.groupby(by=[returns_df.index.year, returns_df.index.month]).sum()
+   
    new_index = []
-   for each in returns_df.index:
+   for each in returns_df_1.index:
       month = datetime.datetime.strptime(str(each[1]), "%m")
       new_index.append(str(month.strftime("%b")) + " " + str(each[0]))
-   
+
    rp = ("{:.2f}".format(rp)) 
    sdp = ("{:.2f}".format(sdp)) 
    sharpe_ratio = ("{:.2f}".format(sharpe_ratio))  
 
    labels = list(new_index)
-   values = list(returns_df[0].values)
+   values = list(returns_df_1[0].values)
+   
    
    labels_pie = list(df[1].values)
    values_pie = list(df[2].values)
