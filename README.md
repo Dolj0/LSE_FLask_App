@@ -1,5 +1,5 @@
 # LSE_FLask_App
-Python Flask based app using a Chart.js dashboard which displays a financial portfolio.
+this program is a flask based app using a Chart.js dashboard which displays a financial portfolio.
 Stock tickers can be added and removed from the portfolio, and a new efficient portfolio will be calculated using Harry Markowitz's efficient frontier method.
 
 ## Extending the LSE_App
