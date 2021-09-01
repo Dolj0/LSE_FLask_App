@@ -19,16 +19,16 @@ class port_function:
         for each in rows:
             tickerlist.append(each[1])
         initial_list = list(dict.fromkeys(tickerlist))
+
         data = yf.download(tickers=initial_list, period="10y", group_by='ticker', auto_adjust = True, interval = "1d")
         
         missing = list(yf.shared._ERRORS.keys())
-        missing_str =  "\n".join(str(x) for x in missing)
-        if missing:
-            messagebox.showerror("Required Fields", f'No data found for following tickers: {missing_str}')
+
         returns = pd.DataFrame(index = data.index)
         self.tick = []
+
         for each in initial_list:
-            if each not in missing:
+            if each.upper() not in missing:
                 self.tick.append(each)
         for each in self.tick:
                 returns[each]=data[each]["Close"].pct_change()
