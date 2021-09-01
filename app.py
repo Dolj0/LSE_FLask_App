@@ -1,17 +1,12 @@
-from operator import index
-from os import remove
-from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
-from investpy.utils.data import Data
+from flask import Flask, render_template, request
 from db import Database
 from port_function import port_function
 
-import numpy as np
+
 import pandas as pd
 import datetime
 
 def manage_db(stock):
-
    db = Database('port.db')
    current_db = populate_df(db)
    print(current_db)
@@ -25,22 +20,15 @@ def manage_db(stock):
       print("new stock is not in df")
       db.insert(stock, "%")
       
-
 def gen_portfolio():
-
    db = Database('port.db')
-   
    portfolios = port_function()
-
    max_sharpe_allocation, rp, sdp, sharpe_ratio= portfolios.max_sharpe()
-
    rows = db.fetch()
    for each in rows:
       db.remove(each[0])
-
    for each in max_sharpe_allocation:
       db.insert(each, max_sharpe_allocation[each]['allocation'])
-
    db = Database('port.db')
    df = populate_df(db)
    weight_df = pd.DataFrame(df[2].values, index=df[1].values)
@@ -68,7 +56,6 @@ def gen_portfolio():
 
    labels = list(new_index)
    values = list(returns_df[0].values)
-   
    
    labels_pie = list(df[1].values)
    values_pie = list(df[2].values)
@@ -101,8 +88,6 @@ def home():
       return render_template('index.html', average_returns=average_returns, volatility=volatility, sharpe_ratio=sharpe_ratio, number_of_stocks=number_of_stocks, labels=labels, values=values, labels_pie=labels_pie, values_pie=values_pie, values_bar=values_bar)   
    else:
       return render_template('index.html', average_returns=average_returns, volatility=volatility, sharpe_ratio=sharpe_ratio, number_of_stocks=number_of_stocks, labels=labels, values=values, labels_pie=labels_pie, values_pie=values_pie, values_bar=values_bar)
-   
-
    
 
 if __name__ == '__main__':

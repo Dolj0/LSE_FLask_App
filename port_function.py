@@ -17,7 +17,7 @@ class port_function:
         rows= db.fetch()
         tickerlist = []
         for each in rows:
-            tickerlist.append(each[1])
+            tickerlist.append(each[1].upper())
         initial_list = list(dict.fromkeys(tickerlist))
 
         data = yf.download(tickers=initial_list, period="10y", group_by='ticker', auto_adjust = True, interval = "1d")
@@ -72,16 +72,6 @@ class port_function:
         max_sharpe_allocation = max_sharpe_allocation.T
 
         return (max_sharpe_allocation, rp, sdp, sharpe_ratio)
-          
-    def min_vol(self):
-        min_vol = self.min_variance()
-        sdp_min, rp_min = self.portfolio_annualised_performance(min_vol['x'], self.mean_returns, self.cov_matrix)
-        sharpe_ratio_min = (rp_min-self.risk_free_rate)/sdp_min
-        min_vol_allocation = pd.DataFrame(min_vol.x, index=self.tick, columns=['allocation'])
-        min_vol_allocation.allocation = [round(i*100,2) for i in min_vol_allocation.allocation]
-        min_vol_allocation = min_vol_allocation.T
-
-        return (min_vol_allocation, rp_min, sdp_min, sharpe_ratio_min)
 
     def max_sharpe_ratio(self):
         num_assets = len(self.mean_returns)
@@ -97,15 +87,6 @@ class port_function:
         p_var, p_ret = self.portfolio_annualised_performance(weights, mean_returns, cov_matrix)
         return -(p_ret - risk_free_rate)/p_var
 
-    def min_variance(self):
-        num_assets = len(self.mean_returns)
-        args = (self.mean_returns, self.cov_matrix)
-        constraints = ({'type': 'eq', 'fun': lambda x: np.sum(x) - 1})
-        bound = (0.0, 1.0)
-        bounds = tuple(bound for asset in range(num_assets))
-        result = sco.minimize(self.portfolio_volatility, num_assets*[1./num_assets], args=args,
-                            method='SLSQP', bounds=bounds, constraints=constraints)
-        return result
 
     def portfolio_volatility(self, weights, mean_returns, cov_matrix):
         return self.portfolio_annualised_performance(weights, mean_returns, cov_matrix)[0]
@@ -114,33 +95,6 @@ class port_function:
         returns = np.sum(mean_returns*weights) * 252
         std = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights))) * np.sqrt(252)
         return std, returns
-
-    def get_ef(self):
-        max_sharpe_allocation, rp, sdp, sharpe_ratio = self.max_sharpe()
-        min_vol_allocation, rp_min, sdp_min, sharpe_ratio_min = self.min_vol()
-        an_vol = np.std(self.returns) * np.sqrt(252)
-        an_rt = self.mean_returns * 252
-        fig, ax = plt.subplots(figsize=(8, 5))
-        ax.scatter(an_vol,an_rt,marker='o',s=200)
-
-        for i, txt in enumerate(self.tick):
-            ax.annotate(txt, (an_vol[i],an_rt[i]), xytext=(10,0), textcoords='offset points')
-        ax.scatter(sdp,rp,marker='*',color='r',s=500, label='Maximum Sharpe ratio')
-        ax.scatter(sdp_min,rp_min,marker='*',color='g',s=500, label='Minimum volatility')
-
-        target = np.linspace(rp_min, 0.34, 50)
-        efficient_portfolios = self.efficient_frontier(self.mean_returns, self.cov_matrix, target)
-        ax.plot([p['fun'] for p in efficient_portfolios], target, linestyle='-.', color='black', label='efficient frontier')
-
-        x_vals = np.array(ax.get_xlim())
-        y_vals = self.risk_free_rate + sharpe_ratio*x_vals
-        ax.plot(x_vals, y_vals, linestyle='-', color='red', label='CAL')
-
-        ax.set_title('Portfolio Optimization with Individual Stocks')
-        ax.set_xlabel('annualised volatility')
-        ax.set_ylabel('annualised returns')
-        ax.legend(labelspacing=0.8)
-        fig.savefig('portfolio.png', dpi=fig.dpi)
 
     def efficient_frontier(self, mean_returns, cov_matrix, returns_range):
         efficients = []
