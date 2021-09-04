@@ -1,6 +1,6 @@
 
 from math import e
-from tkinter import messagebox
+
 from numpy.core.fromnumeric import reshape
 from db import Database
 import yfinance as yf
@@ -9,12 +9,13 @@ import investpy
 import pandas as pd
 import numpy as np
 import scipy.optimize as sco
-import matplotlib.pyplot as plt
+
 
 class port_function:
     def __init__(self):
         db = Database('port.db')
         rows= db.fetch()
+
         tickerlist = []
         for each in rows:
             tickerlist.append(each[1].upper())

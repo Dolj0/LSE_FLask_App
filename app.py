@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request
 from db import Database
 from port_function import port_function
-
-
 import pandas as pd
 import datetime
 
@@ -11,11 +9,14 @@ def manage_db(stock):
    current_db = populate_df(db)
    print(current_db)
    if stock in current_db[1].values:
-      print(stock + ' is in db')
-      all_rows = current_db[current_db[1] == stock]
-      first_row = all_rows.iloc[0]
-      print(first_row[0])
-      db.remove(int(first_row[0]))
+      if len(current_db[1]) > 2:
+         print(stock + ' is in db')
+         all_rows = current_db[current_db[1] == stock]
+         first_row = all_rows.iloc[0]
+         print(first_row[0])
+         db.remove(int(first_row[0]))
+      else:
+         print("A portfolio cannot consist of less than 2 stocks")
    else:
       print("new stock is not in df")
       db.insert(stock, "%")
