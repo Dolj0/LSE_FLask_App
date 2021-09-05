@@ -2264,15 +2264,6 @@
   
   @media (min-width: 576px) {
 
-    .form-inline .form-right{
-      float:right;
-      padding-right: 10%;
-      /* position: absolute;
-      right: 0; 
-      padding: 0px 10px; */
-    }
-
-
     .form-inline label {
       display: flex;
       align-items: center;
@@ -2408,19 +2399,10 @@
   }
   
   .btn-secondary {
-    
+    display: inline-block;
     color: #fff;
     background-color: #858796;
     border-color: #858796;
-    /* position: relative; */
-    /* display: inline-block; */
-    
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 50px;
-    height: 50px;
-
   }
   
   .btn-secondary:hover {
