@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request
+import io, csv
+from flask import Flask, render_template, request, Response
+from flask.helpers import make_response, send_file
 from db import Database
 from port_function import port_function
 import pandas as pd
 import datetime
+
 
 def manage_db(stock):
    db = Database('port.db')
@@ -90,6 +93,29 @@ def home():
    else:
       return render_template('index.html', average_returns=average_returns, volatility=volatility, sharpe_ratio=sharpe_ratio, number_of_stocks=number_of_stocks, labels=labels, values=values, labels_pie=labels_pie, values_pie=values_pie, values_bar=values_bar)
    
+
+@app.route("/getCSV")
+
+def download_csv():
+   db = Database('port.db')
+   current_db = populate_df(db)
+
+   
+      
+   db_list_rows = current_db.values.tolist()
+   db_list = [item for sublist in db_list_rows for item in sublist]
+   db_list_str = [str(i) for i in db_list]
+
+   db_list_str[2::3] = [ i + "/n" for i in db_list_str[2::3]]
+   csv = ",".join(db_list_str)
+   print(csv)
+
+   response = make_response(csv)
+   cd = 'attachement; filename=mycsv.csv'
+   response.headers['Content-Disposition'] = cd
+   response.mimetype='text/csv'
+   return response
+
 
 if __name__ == '__main__':
    app.run()
