@@ -18,10 +18,7 @@ def manage_db(stock):
          first_row = all_rows.iloc[0]
          print(first_row[0])
          db.remove(int(first_row[0]))
-      else:
-         print("A portfolio cannot consist of less than 2 stocks")
    else:
-      print("new stock is not in df")
       db.insert(stock, "%")
       
 def gen_portfolio():
@@ -100,18 +97,15 @@ def download_csv():
    db = Database('port.db')
    current_db = populate_df(db)
 
-   
-      
    db_list_rows = current_db.values.tolist()
    db_list = [item for sublist in db_list_rows for item in sublist]
    db_list_str = [str(i) for i in db_list]
 
-   db_list_str[2::3] = [ i + "/n" for i in db_list_str[2::3]]
-   csv = ",".join(db_list_str)
-   print(csv)
-
-   response = make_response(csv)
-   cd = 'attachement; filename=mycsv.csv'
+   db_list_str[3::3] = [ '\n'+i for i in db_list_str[3::3]]
+   csv_export = ",".join(db_list_str)   
+   
+   response = make_response(csv_export)
+   cd = 'attachement; filename=portfolio.csv'
    response.headers['Content-Disposition'] = cd
    response.mimetype='text/csv'
    return response
